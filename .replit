@@ -1,0 +1,27 @@
+modules = ["nodejs-20"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "main"
+
+[[workflows.workflow]]
+name = "main"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm start"
+
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
