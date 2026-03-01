@@ -3,9 +3,13 @@ const { Connectors, Shoukaku } = require('shoukaku');
 const config = require('./config.js');
 const loadCommands = require('./handlers/loadCommands.js');
 const loadEvents = require('./handlers/loadEvents.js');
-const loadDatabase = require('./handlers/loadDatabase.js'); // <-- NEW IMPORT
+const loadDatabase = require('./handlers/loadDatabase.js');
+const keepAlive = require('./utils/keepAlive.js'); // <-- NEW: Import Keep Alive
 
-// Initialize the Discord Client
+// 1. Start the web server to keep Replit awake
+keepAlive();
+
+// 2. Initialize the Discord Client
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -18,10 +22,10 @@ const client = new Client({
 client.commands = new Collection();
 client.queues = new Map(); 
 
-// Initialize Database Connection <-- NEW ADDITION
+// 3. Initialize Database Connection
 loadDatabase();
 
-// Initialize Shoukaku (Lavalink Wrapper)
+// 4. Initialize Shoukaku (Lavalink Wrapper)
 const Nodes = config.lavalinkNodes;
 const shoukaku = new Shoukaku(new Connectors.DiscordJS(client), Nodes);
 
@@ -30,11 +34,11 @@ client.shoukaku = shoukaku;
 shoukaku.on('error', (_, error) => console.error('Lavalink Error:', error));
 shoukaku.on('ready', (name) => console.log(`[Lavalink] Node: ${name} is now connected.`));
 
-// Load Handlers
+// 5. Load Handlers
 loadCommands(client);
 loadEvents(client);
 
-// Login
+// 6. Login
 client.login(config.token);
 
 

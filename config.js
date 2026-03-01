@@ -1,22 +1,24 @@
 require('dotenv').config();
 
 module.exports = {
-    // Discord Bot settings
     token: process.env.TOKEN,
     clientId: process.env.CLIENT_ID,
-    
-    // Database
     mongoUri: process.env.MONGO_URI,
 
-    // Lavalink settings
+    // THE ABSOLUTE LAST VERIFIED PUBLIC NODES
     lavalinkNodes: [
         {
-            name: 'Public-Test-Node',
-            url: 'lavalink.oops.wtf:2000', 
-            auth: 'www.freelavalink.ooo',
+            name: 'Lava-Link-Official',
+            url: 'lava.link:80',
+            auth: 'youshallnotpass',
             secure: false
+        },
+        {
+            name: 'Lexis-Node',
+            url: 'lavalink.lexis.host:443',
+            auth: 'lexishost',
+            secure: true
         }
     ]
 };
-
 

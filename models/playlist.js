@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const Playlist = require('../models/Playlist.js');
-const QueueManager = require('../utils/QueueManager.js'); // <-- UPDATED IMPORT
+const QueueManager = require('../utils/QueueManager.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -92,7 +92,8 @@ module.exports = {
                 return interaction.editReply({ content: `❌ Could not find a playlist named **"${name}"**.` });
             }
 
-            const node = client.shoukaku.getNode();
+            // --- UPDATED THIS LINE HERE ---
+            const node = client.shoukaku.getIdealNode();
             if (!node) return interaction.editReply({ content: '❌ No music servers are currently available.' });
 
             let queue = client.queues.get(interaction.guild.id);
@@ -104,7 +105,6 @@ module.exports = {
                     shardId: interaction.guild.shardId
                 });
 
-                // <-- UPDATED CLASS INSTANTIATION
                 queue = new QueueManager(client, interaction.guild.id, interaction.channel, player);
                 client.queues.set(interaction.guild.id, queue);
             }
