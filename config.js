@@ -5,20 +5,15 @@ module.exports = {
     clientId: process.env.CLIENT_ID,
     mongoUri: process.env.MONGO_URI,
 
-    // THE ABSOLUTE LAST VERIFIED PUBLIC NODES
+    // Public nodes will now connect because Discloud allows outbound traffic
     lavalinkNodes: [
         {
-            name: 'Lava-Link-Official',
+            name: 'Lavalink-Official-Public',
             url: 'lava.link:80',
             auth: 'youshallnotpass',
             secure: false
-        },
-        {
-            name: 'Lexis-Node',
-            url: 'lavalink.lexis.host:443',
-            auth: 'lexishost',
-            secure: true
         }
     ]
 };
+
 
